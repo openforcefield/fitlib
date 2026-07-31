@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm>=8" ]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fitlib"
+description = "Fit force fields with PyTorch."
+license = "MIT"
+dynamic = ["version"]
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = ["Programming Language :: Python :: 3"]
+[[project.authors]]
+name = "Open Force Field Initiative"
+email = "info@openforcefield.org"
+
+[tool.setuptools.packages.find]
+include = ["fitlib*"]
+
+[tool.setuptools_scm]
+
+[tool.ruff.lint]
+ignore = ["C901","E402","E501"]
+select = ["B","C","E","F", "I", "W","B9"]
+
+[tool.coverage.run]
+omit = ["**/_tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "@overload",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ = .__main__.:",
+    "if TYPE_CHECKING:",
+    "if typing.TYPE_CHECKING:",
+]
