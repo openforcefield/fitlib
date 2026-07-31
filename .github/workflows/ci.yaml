@@ -52,7 +52,7 @@ jobs:
         run: pixi run -e "${{ env.PIXI_ENV }}" test-examples
 
       - name: CodeCov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           file: ./coverage.xml
           flags: unittests
