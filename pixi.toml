@@ -55,6 +55,9 @@ nnpops = "*"
 pydantic = "*"
 pydantic-units = "*"
 
+[feature.packmol.dependencies]
+packmol = "*"
+
 [feature.fe.dependencies]
 mdtraj = "*"
 absolv-base = "=1.0.4"
@@ -130,6 +133,7 @@ types-PyYAML = "*"
 # "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
 base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
-py312 = ["py312", "mm", "fe", "test", "typing"]
+mm-py312 = ["py312", "openeye", "packmol", "mm", "test", "typing"]
+mm-py313 = ["py313", "openeye", "packmol", "mm", "test", "typing"]
 dev = ["py312", "mm", "fe", "openeye", "test", "typing", "dev"]
 docs = ["py312", "docs"]

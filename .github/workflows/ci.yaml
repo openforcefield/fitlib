@@ -25,6 +25,7 @@ jobs:
         # Exclude the CUDA envs as we can't test them on GitHub Actions
         base:
           - base
+          - mm
 
     steps:
       - uses: actions/checkout@v7
