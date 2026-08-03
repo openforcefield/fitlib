@@ -43,7 +43,7 @@ def test_convert_handler(ethanol, ethanol_interchange, mocker):
     mock_result = (mocker.MagicMock(), [])
 
     mock_convert = mocker.patch(
-        "fitlib.tests.utils.mock_convert_fn_with_deps",
+        "fitlib._tests.utils.mock_convert_fn_with_deps",
         autospec=True,
         return_value=mock_result,
     )

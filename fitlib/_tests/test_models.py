@@ -2,7 +2,7 @@ import openff.interchange.models
 import pytest
 import torch
 
-import fitlib.tests.utils
+import fitlib._tests.utils
 from fitlib._models import _cast
 
 
@@ -43,19 +43,19 @@ def _add_v_sites(topology: fitlib.TensorTopology):
 
 class TestTensorTopology:
     def test_n_atoms(self):
-        topology = fitlib.tests.utils.topology_from_smiles("CO")
+        topology = fitlib._tests.utils.topology_from_smiles("CO")
 
         expected_n_atoms = 6
         assert topology.n_atoms == expected_n_atoms
 
     def test_n_bonds(self):
-        topology = fitlib.tests.utils.topology_from_smiles("CO")
+        topology = fitlib._tests.utils.topology_from_smiles("CO")
 
         expected_n_bonds = 5
         assert topology.n_bonds == expected_n_bonds
 
     def test_n_residues(self):
-        topology = fitlib.tests.utils.topology_from_smiles("[Ar]")
+        topology = fitlib._tests.utils.topology_from_smiles("[Ar]")
         topology.residue_ids = None
         topology.residue_idxs = None
         assert topology.n_residues == 0
@@ -65,7 +65,7 @@ class TestTensorTopology:
         assert topology.n_residues == 1
 
     def test_n_chains(self):
-        topology = fitlib.tests.utils.topology_from_smiles("[Ar]")
+        topology = fitlib._tests.utils.topology_from_smiles("[Ar]")
         topology.residue_ids = [0]
         topology.residue_idxs = ["UNK"]
         topology.chain_idxs = [0]
@@ -73,7 +73,7 @@ class TestTensorTopology:
         assert topology.n_chains == 1
 
     def test_n_v_sites(self):
-        topology = fitlib.tests.utils.topology_from_smiles("CO")
+        topology = fitlib._tests.utils.topology_from_smiles("CO")
 
         expected_n_v_sites = 0
         assert topology.n_v_sites == expected_n_v_sites
@@ -84,7 +84,7 @@ class TestTensorTopology:
         assert topology.n_v_sites == expected_n_v_sites
 
     def test_n_particles(self):
-        topology = fitlib.tests.utils.topology_from_smiles("CO")
+        topology = fitlib._tests.utils.topology_from_smiles("CO")
         _add_v_sites(topology)
 
         expected_n_particles = 7
@@ -95,8 +95,8 @@ class TestTensorSystem:
     def test_n_atoms(self):
         system = fitlib.TensorSystem(
             topologies=[
-                fitlib.tests.utils.topology_from_smiles("CO"),
-                fitlib.tests.utils.topology_from_smiles("O"),
+                fitlib._tests.utils.topology_from_smiles("CO"),
+                fitlib._tests.utils.topology_from_smiles("O"),
             ],
             n_copies=[2, 5],
             is_periodic=True,
@@ -108,8 +108,8 @@ class TestTensorSystem:
     def test_n_v_sites(self):
         system = fitlib.TensorSystem(
             topologies=[
-                fitlib.tests.utils.topology_from_smiles("CO"),
-                fitlib.tests.utils.topology_from_smiles("O"),
+                fitlib._tests.utils.topology_from_smiles("CO"),
+                fitlib._tests.utils.topology_from_smiles("O"),
             ],
             n_copies=[2, 5],
             is_periodic=True,
@@ -126,8 +126,8 @@ class TestTensorSystem:
     def test_n_particles(self):
         system = fitlib.TensorSystem(
             topologies=[
-                fitlib.tests.utils.topology_from_smiles("CO"),
-                fitlib.tests.utils.topology_from_smiles("O"),
+                fitlib._tests.utils.topology_from_smiles("CO"),
+                fitlib._tests.utils.topology_from_smiles("O"),
             ],
             n_copies=[2, 5],
             is_periodic=True,

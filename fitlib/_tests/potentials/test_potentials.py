@@ -11,8 +11,8 @@ import openmm
 import openmm.unit
 import torch
 
+import fitlib._tests.utils
 import fitlib.converters
-import fitlib.tests.utils
 import fitlib.utils
 from fitlib.potentials import (
     broadcast_exceptions,
@@ -77,7 +77,7 @@ def _compute_openmm_energy(
 
 
 def test_broadcast_parameters():
-    system, force_field = fitlib.tests.utils.system_from_smiles(["C", "O"], [2, 3])
+    system, force_field = fitlib._tests.utils.system_from_smiles(["C", "O"], [2, 3])
     vdw_potential = force_field.potentials_by_type["vdW"]
 
     methane_top, water_top = system.topologies
@@ -99,7 +99,7 @@ def test_broadcast_parameters():
 
 
 def test_broadcast_exceptions():
-    system, force_field = fitlib.tests.utils.system_from_smiles(
+    system, force_field = fitlib._tests.utils.system_from_smiles(
         ["O", "[Na+]", "[Cl-]"], [1, 2, 2]
     )
 
@@ -243,7 +243,7 @@ def test_compute_energy_v_sites():
 
 @pytest.mark.parametrize("periodic", [True, False])
 def test_energy_backward_pass(periodic):
-    tensor_sys, tensor_ff = fitlib.tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
+    tensor_sys, tensor_ff = fitlib._tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
     tensor_sys.is_periodic = periodic
 
     coords, _ = fitlib.mm.generate_system_coords(tensor_sys, None)
