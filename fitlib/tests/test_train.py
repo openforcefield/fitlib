@@ -7,6 +7,8 @@ import pydantic
 import pytest
 import torch
 
+pytest.importorskip("openmm")
+
 import fitlib
 import fitlib.converters
 import fitlib.utils

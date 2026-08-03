@@ -1,8 +1,11 @@
 import numpy
-import openmm.unit
 import pytest
 import torch
 import uncertainties.unumpy
+
+pytest.importorskip("openmm")
+
+import openmm.unit
 
 import fitlib.mm
 import fitlib.utils.dataset

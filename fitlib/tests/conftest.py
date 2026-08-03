@@ -54,7 +54,7 @@ def test_data_dir() -> pathlib.Path:
 def default_force_field() -> openff.toolkit.ForceField:
     """Returns the OpenFF 1.3.0 force field with constraints removed."""
 
-    force_field = openff.toolkit.ForceField("openff-2.3.0.offxml")
+    force_field = openff.toolkit.ForceField("openff-1.3.0.offxml")
     force_field.deregister_parameter_handler("Constraints")
 
     return force_field
