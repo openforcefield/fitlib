@@ -24,10 +24,6 @@ jobs:
         python-version: ["311", "312"]
         # Exclude the CUDA envs as we can't test them on GitHub Actions
         base:
-          - openeye-fe-examples-cpu
-          - ambertools-fe-examples-cpu
-          - openeye-cpu
-          - ambertools-examples-pydantic-1-cpu
           - base
 
     steps:
@@ -54,7 +50,7 @@ jobs:
       - name: CodeCov
         uses: codecov/codecov-action@v5
         with:
-          file: ./coverage.xml
+          files: ./coverage.xml
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
 

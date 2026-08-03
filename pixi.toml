@@ -17,8 +17,8 @@ pip = "*"
 msgpack-python = "*"
 pydantic = "*"
 pydantic-units = "*"
-openff-toolkit = "0.18.*"
-openff-interchange = "0.5.*"
+openff-toolkit-base = "0.18.*"
+openff-interchange-base = "0.5.*"
 pytorch = "*"
 pyarrow = "*"
 datasets = "*"
@@ -26,7 +26,7 @@ scipy = "*"
 rdkit = "*"
 matplotlib-base = "*"
 panel = "*"
-openmm = "*"
+python-symengine = "*"
 jupyter = "*"
 nbconvert = "*"
 tensorboard = "*"
@@ -49,7 +49,6 @@ pytorch-gpu = "*"
 [feature.mm.dependencies]
 openmm = "*"
 # packmol = "*"
-python-symengine = "*"
 rdkit = "*"
 numpy = "*"
 msgpack-python = "*"
@@ -67,6 +66,9 @@ channels = ["openeye"]
 
 [feature.openeye.dependencies]
 openeye-toolkits = "*"
+
+[feature.ambertools.dependencies]
+ambertools = "*"
 
 [feature.examples.dependencies]
 jupyter = "*"
@@ -106,7 +108,6 @@ python = "3.12.*"
 [feature.py313.dependencies]
 python = "3.13.*"
 
-
 [tool.pixi.feature.pydantic-2.dependencies]
 pydantic = ">=2.0"
 
@@ -121,8 +122,9 @@ pandas-stubs = "*"
 
 [environments]
 # from smee, there were some environments without the "mm" feature
-base-py312 = [ "py312", "test", "typing" ]
-base-py313 = [ "py313", "test", "typing" ]
+# "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
+base-py312 = [ "py312", "openeye", "ambertools", "test", "typing" ]
+base-py313 = [ "py313", "openeye", "ambertools", "test", "typing" ]
 py312 = [ "py312", "mm", "fe", "test", "typing" ]
 dev = [ "py312", "mm", "fe", "openeye", "test", "typing", "dev" ]
 docs = [ "py312", "docs" ]
