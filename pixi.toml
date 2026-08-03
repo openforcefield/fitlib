@@ -2,7 +2,7 @@
 authors = ["Open Force Field Initiative <info@openforcefield.org>"]
 channels = ["conda-forge"]
 name = "fitlib"
-platforms = [ "linux-64", "osx-arm64" ]
+platforms = ["linux-64", "osx-arm64"]
 
 [tasks]
 test = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/tests/"
@@ -58,7 +58,7 @@ pydantic-units = "*"
 [feature.fe.dependencies]
 mdtraj = "*"
 absolv-base = "=1.0.4"
-femto = "=0.2.1"  # API break in 0.3.x that absolv hasn't been updated for?
+femto = "=0.2.1"       # API break in 0.3.x that absolv hasn't been updated for?
 
 [feature.openeye]
 channels = ["openeye"]
@@ -81,6 +81,7 @@ ruff = "*"
 nbqa = "*"
 ipython = "*"
 ipdb = "*"
+taplo = "*"
 
 [feature.test.dependencies]
 pytest = "*"
@@ -127,8 +128,8 @@ types-PyYAML = "*"
 [environments]
 # from smee, there were some environments without the "mm" feature
 # "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
-base-py312 = [ "py312", "openeye", "ambertools", "test", "typing" ]
-base-py313 = [ "py313", "openeye", "ambertools", "test", "typing" ]
-py312 = [ "py312", "mm", "fe", "test", "typing" ]
-dev = [ "py312", "mm", "fe", "openeye", "test", "typing", "dev" ]
-docs = [ "py312", "docs" ]
+base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
+base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
+py312 = ["py312", "mm", "fe", "test", "typing"]
+dev = ["py312", "mm", "fe", "openeye", "test", "typing", "dev"]
+docs = ["py312", "docs"]
