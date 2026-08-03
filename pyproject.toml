@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ["setuptools>=61", "setuptools-scm>=8"]
+requires = [ "setuptools>=61", "setuptools-scm>=8" ]
 
 [project]
 name = "fitlib"
@@ -17,16 +17,16 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dynamic = ["version"]
+dynamic = [ "version" ]
 
 [tool.setuptools]
-packages.find.include = ["fitlib*"]
+packages.find.include = [ "fitlib*" ]
 
 [tool.setuptools_scm]
 
 [tool.ruff]
-lint.select = ["B", "B9", "C", "E", "F", "I", "W"]
-lint.ignore = ["C901", "E402", "E501"]
+lint.select = [ "B", "B9", "C", "E", "F", "I", "W" ]
+lint.ignore = [ "C901", "E402", "E501" ]
 
 [tool.mypy]
 mypy_path = "stubs/"
@@ -84,10 +84,10 @@ ignore_missing_imports = true
 
 [tool.pytest]
 ini_options.addopts = "-m 'not fe'"
-ini_options.markers = ["fe: run free energy regression tests"]
+ini_options.markers = [ "fe: run free energy regression tests" ]
 
 [tool.coverage]
-run.omit = ["**/_tests/*"]
+run.omit = [ "**/_tests/*" ]
 report.exclude_lines = [
   "@overload",
   "if __name__ = .__main__.:",
