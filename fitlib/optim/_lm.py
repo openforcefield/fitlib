@@ -326,7 +326,7 @@ def _hessian_diagonal_search(
         loss_micro, _, _ = closure_fn(x_next, False, False)
         return loss_micro - loss
 
-    damping_factor, expected_improvement, _, _ = optimize.brent(  # type: ignore[call-overload]
+    damping_factor, expected_improvement, _, _ = optimize.brent(
         search_fn,
         (),
         (damping_factor, damping_factor * 4),
@@ -353,7 +353,7 @@ def _hessian_diagonal_search(
 
         _LOGGER.info(f"restarting search with step size {dx_norm}")
 
-        damping_factor, expected_improvement, _, _ = optimize.brent(  # type: ignore[call-overload]
+        damping_factor, expected_improvement, _, _ = optimize.brent(
             search_fn,
             (),
             (damping_factor, damping_factor * 4),

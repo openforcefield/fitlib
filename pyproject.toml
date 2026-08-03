@@ -36,6 +36,56 @@ exclude_lines = [
     "if typing.TYPE_CHECKING:",
 ]
 
+[tool.mypy]
+# fix me!
+disable_error_code = [
+    "misc",
+    "call-arg",
+    "attr-defined",
+    "arg-type",
+    "type-arg",
+    "valid-type",
+    "return-value",
+    "assignment",
+    "union-attr",
+    "index",
+    "var-annotated",
+    "call-overload",
+    "operator",
+    "no-redef",
+    "dict-item",
+    "list-item",
+]
+mypy_path = "stubs/"
+exclude = "fitlib/tests"
+python_version = "3.12"
+warn_unused_ignores = true
+plugins = "pydantic.mypy"
+warn_incomplete_stub = true
+warn_unused_configs = true
+show_error_codes = true
+[[tool.mypy.overrides]]
+module = [
+  "absolv",
+  "absolv.*",
+  "datasets",
+  "datasets.*",
+  "openff.toolkit",
+  "smirnoff_plugins.*",
+  "openmm",
+  "openmm.unit",
+  "openmm.app",
+  "pymbar",
+  "pymbar.timeseries",
+  "parmed",
+  "parmed.*",
+  "mdtraj",
+  "NNPOps",
+  "NNPOps.*",
+  "symengine",
+]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 markers = [
     "fe: run free energy regression tests",

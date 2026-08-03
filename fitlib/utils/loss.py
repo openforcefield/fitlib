@@ -114,9 +114,9 @@ def combine_closures(
         loss = sum(loss[1:], loss[0])
 
         if compute_gradient:
-            grad = sum(grad[1:], grad[0]).detach()  # type: ignore[index]
+            grad = sum(grad[1:], grad[0]).detach()
         if compute_hessian:
-            hess = sum(hess[1:], hess[0]).detach()  # type: ignore[index]
+            hess = sum(hess[1:], hess[0]).detach()
 
         if verbose:
             import pandas
@@ -126,7 +126,7 @@ def combine_closures(
                 + pandas.DataFrame(verbose_rows).to_string(index=False)
             )
 
-        return loss.detach(), grad, hess  # type: ignore[return-value]
+        return loss.detach(), grad, hess
 
     return combined_closure_fn
 

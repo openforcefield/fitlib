@@ -490,7 +490,7 @@ def _plan_simulations(
                 key = SimulationKey(
                     (smiles,), (max_mols,), entry["temperature"], entry["pressure"]
                 )
-                system = fitlib.TensorSystem([topologies[smiles]], [max_mols], True)  # type: ignore[index]
+                system = fitlib.TensorSystem([topologies[smiles]], [max_mols], True)
 
                 systems_per_phase["bulk"][key] = system
                 required_sims[f"bulk_{i}"] = key
@@ -723,7 +723,7 @@ def predict(
     """
 
     # unclear if this should be list[DataEntry] or list[dict]
-    entries: list[DataEntry] = [*fitlib.utils.dataset.iter_dataset(dataset)]  # type: ignore[list-item]
+    entries: list[DataEntry] = [*fitlib.utils.dataset.iter_dataset(dataset)]
 
     required_simulations, entry_to_simulation = _plan_simulations(
         entries, topologies, simulation_config
@@ -830,7 +830,7 @@ def default_closure(
     ):
         force_field = trainable.to_force_field(x)
 
-        y_ref, _, y_pred, _ = fitlib.targets.thermo.predict(  # type: ignore[attr-defined]
+        y_ref, _, y_pred, _ = fitlib.targets.thermo.predict(
             dataset,
             force_field,
             topologies,

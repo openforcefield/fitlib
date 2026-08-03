@@ -40,6 +40,9 @@ jobs:
           cache: true
           environments: ${{ env.PIXI_ENV }}
 
+      - name: Run type-checker
+        run: pixi run -e "${{ env.PIXI_ENV }}" type-check
+
       - name: Run tests
         run: pixi run -e "${{ env.PIXI_ENV }}" test
 

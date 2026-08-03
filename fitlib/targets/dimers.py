@@ -331,7 +331,7 @@ def default_closure(
     """
 
     def loss_fn(_x: torch.Tensor) -> torch.Tensor:
-        y_ref, y_pred = fitlib.targets.dimers.predict(  # type: ignore[attr-defined]
+        y_ref, y_pred = fitlib.targets.dimers.predict(
             dataset, trainable.to_force_field(_x), topologies
         )
         return ((y_pred - y_ref) ** 2).sum()
