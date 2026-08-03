@@ -13,10 +13,10 @@ import torch
 from rdkit import Chem
 
 import fitlib
+import fitlib._tests.utils
 import fitlib.converters
 import fitlib.mm
 import fitlib.mm._utils
-import fitlib.tests.utils
 from fitlib.mm._mm import (
     _apply_hmr,
     _approximate_box_size,
@@ -183,7 +183,7 @@ def test_topology_to_xyz(mocker):
 
 def test_approximate_box_size():
     system = fitlib.TensorSystem(
-        [fitlib.tests.utils.topology_from_smiles("O")], [256], True
+        [fitlib._tests.utils.topology_from_smiles("O")], [256], True
     )
 
     config = fitlib.mm.GenerateCoordsConfig(scale_factor=2.0)
@@ -239,8 +239,8 @@ def test_generate_system_coords():
     coords, box_vectors = generate_system_coords(
         fitlib.TensorSystem(
             [
-                fitlib.tests.utils.topology_from_smiles("O"),
-                fitlib.tests.utils.topology_from_smiles("CO"),
+                fitlib._tests.utils.topology_from_smiles("O"),
+                fitlib._tests.utils.topology_from_smiles("CO"),
             ],
             [1, 2],
             True,

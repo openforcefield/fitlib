@@ -149,7 +149,9 @@ def system_with_exceptions() -> tuple[
         {"smirks": "[Ar:1]", "epsilon": eps_a * kcal, "sigma": sig_a * ang}
     )
 
-    system, tensor_ff = fitlib.tests.utils.system_from_smiles(["O", "[Ar]"], [1, 1], ff)
+    system, tensor_ff = fitlib._tests.utils.system_from_smiles(
+        ["O", "[Ar]"], [1, 1], ff
+    )
     system.is_periodic = False
 
     lj_potential = tensor_ff.potentials_by_type["vdW"]

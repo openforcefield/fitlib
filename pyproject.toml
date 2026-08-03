@@ -30,7 +30,7 @@ lint.ignore = [ "C901", "E402", "E501" ]
 
 [tool.mypy]
 mypy_path = "stubs/"
-exclude = "fitlib/tests"
+exclude = "fitlib/_tests"
 python_version = "3.12"
 warn_unused_ignores = true
 # fix me!

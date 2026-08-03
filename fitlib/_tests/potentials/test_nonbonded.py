@@ -10,10 +10,10 @@ import openmm.unit
 import torch
 
 import fitlib
+import fitlib._tests.utils
 import fitlib.converters
 import fitlib.converters.openmm
 import fitlib.mm
-import fitlib.tests.utils
 import fitlib.utils
 from fitlib.potentials.nonbonded import (
     _COULOMB_PRE_FACTOR,
@@ -76,7 +76,7 @@ def _parameter_key_to_idx(potential: fitlib.TensorPotential, key: str):
 
 
 def test_compute_pairwise_scales():
-    system, force_field = fitlib.tests.utils.system_from_smiles(["C", "O"], [2, 3])
+    system, force_field = fitlib._tests.utils.system_from_smiles(["C", "O"], [2, 3])
 
     vdw_potential = force_field.potentials_by_type["vdW"]
     vdw_potential.attributes = torch.tensor(
@@ -126,8 +126,8 @@ def test_compute_pairwise_scales():
 def test_compute_pairwise_periodic():
     system = fitlib.TensorSystem(
         [
-            fitlib.tests.utils.topology_from_smiles("[Ar]"),
-            fitlib.tests.utils.topology_from_smiles("[Ne]"),
+            fitlib._tests.utils.topology_from_smiles("[Ar]"),
+            fitlib._tests.utils.topology_from_smiles("[Ne]"),
         ],
         [2, 3],
         True,
@@ -173,8 +173,8 @@ def test_compute_pairwise_periodic():
 def test_compute_pairwise_non_periodic(with_batch):
     system = fitlib.TensorSystem(
         [
-            fitlib.tests.utils.topology_from_smiles("[Ar]"),
-            fitlib.tests.utils.topology_from_smiles("[Ne]"),
+            fitlib._tests.utils.topology_from_smiles("[Ar]"),
+            fitlib._tests.utils.topology_from_smiles("[Ne]"),
         ],
         [2, 3],
         False,
@@ -235,7 +235,7 @@ def test_compute_pairwise_non_periodic(with_batch):
 
 @pytest.mark.parametrize("with_exceptions", [True, False])
 def test_prepare_lrc_types(with_exceptions):
-    system, force_field = fitlib.tests.utils.system_from_smiles(["C", "O"], [2, 3])
+    system, force_field = fitlib._tests.utils.system_from_smiles(["C", "O"], [2, 3])
 
     vdw_potential = force_field.potentials_by_type["vdW"]
     assert len(vdw_potential.parameters) == 4
@@ -265,7 +265,7 @@ def test_prepare_lrc_types(with_exceptions):
     assert [*param_idxs.values()] == [0, 1, 2, 3]
 
     if with_exceptions:
-        fitlib.tests.utils.add_explicit_lb_exceptions(vdw_potential, system)
+        fitlib._tests.utils.add_explicit_lb_exceptions(vdw_potential, system)
         assert len(vdw_potential.exceptions) == 10
 
     idxs_i, idxs_j, n_ij_interactions = prepare_lrc_types(system, vdw_potential)
@@ -292,11 +292,11 @@ def test_prepare_lrc_types(with_exceptions):
     "lrc_fn, convert_fn",
     [
         (_compute_lj_lrc, lambda p: p),
-        (_compute_dexp_lrc, fitlib.tests.utils.convert_lj_to_dexp),
+        (_compute_dexp_lrc, fitlib._tests.utils.convert_lj_to_dexp),
     ],
 )
 def test_compute_xxx_lrc_with_exceptions(lrc_fn, convert_fn):
-    system, force_field = fitlib.tests.utils.system_from_smiles(["C", "O"], [50, 30])
+    system, force_field = fitlib._tests.utils.system_from_smiles(["C", "O"], [50, 30])
 
     vdw_potential_no_exceptions = convert_fn(
         copy.deepcopy(force_field.potentials_by_type["vdW"])
@@ -313,7 +313,9 @@ def test_compute_xxx_lrc_with_exceptions(lrc_fn, convert_fn):
     vdw_potential_with_exceptions = convert_fn(
         copy.deepcopy(force_field.potentials_by_type["vdW"])
     )
-    fitlib.tests.utils.add_explicit_lb_exceptions(vdw_potential_with_exceptions, system)
+    fitlib._tests.utils.add_explicit_lb_exceptions(
+        vdw_potential_with_exceptions, system
+    )
     assert len(vdw_potential_with_exceptions.exceptions) == 10
 
     lrc_with_exceptions = lrc_fn(system, vdw_potential_with_exceptions, rs, rc, volume)
@@ -326,8 +328,8 @@ def test_compute_xxx_lrc_with_exceptions(lrc_fn, convert_fn):
     [
         (compute_lj_energy, lambda p: p, False),
         (compute_lj_energy, lambda p: p, True),
-        (compute_dexp_energy, fitlib.tests.utils.convert_lj_to_dexp, False),
-        (compute_dexp_energy, fitlib.tests.utils.convert_lj_to_dexp, True),
+        (compute_dexp_energy, fitlib._tests.utils.convert_lj_to_dexp, False),
+        (compute_dexp_energy, fitlib._tests.utils.convert_lj_to_dexp, True),
     ],
 )
 def test_compute_xxx_energy_periodic(
@@ -336,7 +338,7 @@ def test_compute_xxx_energy_periodic(
     tensor_sys, tensor_ff, coords, box_vectors = etoh_water_system
 
     if with_exceptions:
-        fitlib.tests.utils.add_explicit_lb_exceptions(
+        fitlib._tests.utils.add_explicit_lb_exceptions(
             tensor_ff.potentials_by_type["vdW"], tensor_sys
         )
 
@@ -363,16 +365,16 @@ def test_compute_xxx_energy_periodic(
     [
         (compute_lj_energy, lambda p: p, False),
         (compute_lj_energy, lambda p: p, True),
-        (compute_dexp_energy, fitlib.tests.utils.convert_lj_to_dexp, False),
-        (compute_dexp_energy, fitlib.tests.utils.convert_lj_to_dexp, True),
+        (compute_dexp_energy, fitlib._tests.utils.convert_lj_to_dexp, False),
+        (compute_dexp_energy, fitlib._tests.utils.convert_lj_to_dexp, True),
     ],
 )
 def test_compute_xxx_energy_non_periodic(energy_fn, convert_fn, with_exceptions):
-    tensor_sys, tensor_ff = fitlib.tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
+    tensor_sys, tensor_ff = fitlib._tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
     tensor_sys.is_periodic = False
 
     if with_exceptions:
-        fitlib.tests.utils.add_explicit_lb_exceptions(
+        fitlib._tests.utils.add_explicit_lb_exceptions(
             tensor_ff.potentials_by_type["vdW"], tensor_sys
         )
 
@@ -395,7 +397,7 @@ def test_compute_xxx_energy_non_periodic(energy_fn, convert_fn, with_exceptions)
     assert torch.allclose(forces, expected_forces, atol=1.0e-5)
 
 
-def _expected_energy_lj_exceptions(params: dict[str, fitlib.tests.utils.LJParam]):
+def _expected_energy_lj_exceptions(params: dict[str, fitlib._tests.utils.LJParam]):
     sqrt_2 = math.sqrt(2)
 
     expected_energy = 4.0 * (
@@ -414,7 +416,7 @@ def _expected_energy_lj_exceptions(params: dict[str, fitlib.tests.utils.LJParam]
     return expected_energy
 
 
-def _expected_energy_dexp_exceptions(params: dict[str, fitlib.tests.utils.LJParam]):
+def _expected_energy_dexp_exceptions(params: dict[str, fitlib._tests.utils.LJParam]):
     alpha = 16.5
     beta = 5.0
 
@@ -450,13 +452,13 @@ def _expected_energy_dexp_exceptions(params: dict[str, fitlib.tests.utils.LJPara
         (compute_lj_energy, lambda p: p, _expected_energy_lj_exceptions),
         (
             compute_dexp_energy,
-            fitlib.tests.utils.convert_lj_to_dexp,
+            fitlib._tests.utils.convert_lj_to_dexp,
             _expected_energy_dexp_exceptions,
         ),
     ],
 )
 def test_compute_energy_exceptions_non_periodic(energy_fn, convert_fn, expected_fn):
-    system, lj_potential, params = fitlib.tests.utils.system_with_exceptions()
+    system, lj_potential, params = fitlib._tests.utils.system_with_exceptions()
 
     vdw_potential = convert_fn(lj_potential)
 
@@ -481,7 +483,7 @@ def test_coulomb_pre_factor():
 
 
 def test_compute_pme_exclusions():
-    system, force_field = fitlib.tests.utils.system_from_smiles(["C", "O"], [2, 3])
+    system, force_field = fitlib._tests.utils.system_from_smiles(["C", "O"], [2, 3])
 
     coulomb_potential = force_field.potentials_by_type["Electrostatics"]
     exclusions = _compute_pme_exclusions(system, coulomb_potential)
@@ -541,7 +543,7 @@ def test_compute_coulomb_energy_periodic(etoh_water_system):
 
 
 def test_compute_coulomb_energy_non_periodic():
-    tensor_sys, tensor_ff = fitlib.tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
+    tensor_sys, tensor_ff = fitlib._tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
     tensor_sys.is_periodic = False
 
     coords, _ = fitlib.mm.generate_system_coords(tensor_sys, None)

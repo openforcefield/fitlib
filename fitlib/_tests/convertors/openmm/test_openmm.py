@@ -12,9 +12,9 @@ import openmm
 import torch
 
 import fitlib
+import fitlib._tests.utils
 import fitlib.mm
 import fitlib.potentials
-import fitlib.tests.utils
 from fitlib.converters.openmm import (
     convert_to_openmm_force,
     convert_to_openmm_system,
@@ -222,7 +222,7 @@ def test_convert_to_openmm_system_periodic(with_constraints):
 
 @pytest.mark.parametrize("with_exception", [True, False])
 def test_convert_lj_potential_with_exceptions(with_exception):
-    system, vdw_potential, _ = fitlib.tests.utils.system_with_exceptions()
+    system, vdw_potential, _ = fitlib._tests.utils.system_with_exceptions()
 
     vdw_potential.exceptions = {} if not with_exception else vdw_potential.exceptions
 

@@ -11,7 +11,7 @@ import openmm.unit
 import torch
 
 import fitlib
-import fitlib.tests.utils
+import fitlib._tests.utils
 from fitlib.mm._ops import (
     _compute_frame_observables,
     _compute_mass,
@@ -119,8 +119,8 @@ def test_pack_unpack_force_field(mocker):
 
 
 def test_compute_mass():
-    water = fitlib.tests.utils.topology_from_smiles("O")
-    methane = fitlib.tests.utils.topology_from_smiles("C")
+    water = fitlib._tests.utils.topology_from_smiles("O")
+    methane = fitlib._tests.utils.topology_from_smiles("C")
 
     system = fitlib.TensorSystem([water, methane], [2, 3], True)
 
@@ -136,7 +136,7 @@ def test_compute_mass():
 
 def test_compute_frame_observables_non_periodic(mocker):
     system = fitlib.TensorSystem(
-        [fitlib.tests.utils.topology_from_smiles("[Ar]")], [1], False
+        [fitlib._tests.utils.topology_from_smiles("[Ar]")], [1], False
     )
 
     beta = 2.0
@@ -155,7 +155,7 @@ def test_compute_frame_observables_non_periodic(mocker):
 
 def test_compute_frame_observables():
     system = fitlib.TensorSystem(
-        [fitlib.tests.utils.topology_from_smiles("[Ar]")], [1], True
+        [fitlib._tests.utils.topology_from_smiles("[Ar]")], [1], True
     )
 
     box_length = 20.0
