@@ -5,6 +5,8 @@ import openff.toolkit
 import pytest
 import torch
 
+pytest.importorskip("openmm")
+
 import fitlib.converters
 import fitlib.utils.dataset
 from fitlib.targets.energy import (

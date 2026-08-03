@@ -125,7 +125,7 @@ def print_potential_summary(potential: fitlib.TensorPotential):
     if potential.attributes is not None:
         attribute_rows = [
             {
-                f"{col}{_format_unit(potential.attribute_units[idx])}": (  # type: ignore[index]
+                f"{col}{_format_unit(potential.attribute_units[idx])}": (
                     f"{potential.attributes[idx].item():.4f} "
                 )
                 for idx, col in enumerate(potential.attribute_cols)
@@ -148,7 +148,7 @@ def print_v_site_summary(v_sites: fitlib.TensorVSites):
     parameter_rows = []
 
     for key, value in zip(v_sites.keys, v_sites.parameters.detach(), strict=True):
-        row = {"ID": _format_parameter_id(key.id)}  # type: ignore[attr-defined]
+        row = {"ID": _format_parameter_id(key.id)}
         row.update(
             {
                 f"{col}{_format_unit(unit)}": f"{value[idx].item():.4f}"

@@ -1,16 +1,20 @@
 """Convert fitlib parameters to OpenMM ForceField XML files."""
 
+from __future__ import annotations
+
 import collections
 import math
 import typing
 import uuid
 import xml.etree.ElementTree as ElementTree
 
-import openmm
-import openmm.app
 import torch
 
 import fitlib
+
+if typing.TYPE_CHECKING:
+    import openmm
+    import openmm.unit
 
 _CONVERTER_FUNCTIONS: dict[
     tuple[str, str],

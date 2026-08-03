@@ -1,37 +1,98 @@
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm>=8" ]
 build-backend = "setuptools.build_meta"
+requires = [ "setuptools>=61", "setuptools-scm>=8" ]
 
 [project]
 name = "fitlib"
 description = "Fit force fields with PyTorch."
-license = "MIT"
-dynamic = ["version"]
 readme = "README.md"
+license = "MIT"
+authors = [
+  { name = "Open Force Field Initiative", email = "info@openforcefield.org" },
+]
 requires-python = ">=3.12"
-classifiers = ["Programming Language :: Python :: 3"]
-[[project.authors]]
-name = "Open Force Field Initiative"
-email = "info@openforcefield.org"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+dynamic = [ "version" ]
 
-[tool.setuptools.packages.find]
-include = ["fitlib*"]
+[tool.setuptools]
+packages.find.include = [ "fitlib*" ]
 
 [tool.setuptools_scm]
 
-[tool.ruff.lint]
-ignore = ["C901","E402","E501"]
-select = ["B","C","E","F", "I", "W","B9"]
+[tool.ruff]
+lint.select = [ "B", "B9", "C", "E", "F", "I", "W" ]
+lint.ignore = [ "C901", "E402", "E501" ]
 
-[tool.coverage.run]
-omit = ["**/_tests/*"]
+[tool.mypy]
+mypy_path = "stubs/"
+exclude = "fitlib/tests"
+python_version = "3.12"
+warn_unused_ignores = true
+# fix me!
+disable_error_code = [
+  "arg-type",
+  "assignment",
+  "attr-defined",
+  "call-arg",
+  "call-overload",
+  "dict-item",
+  "index",
+  "list-item",
+  "misc",
+  "no-redef",
+  "operator",
+  "return-value",
+  "type-arg",
+  "union-attr",
+  "valid-type",
+  "var-annotated",
+]
+plugins = "pydantic.mypy"
+warn_incomplete_stub = true
+warn_unused_configs = true
+show_error_codes = true
 
-[tool.coverage.report]
-exclude_lines = [
-    "@overload",
-    "pragma: no cover",
-    "raise NotImplementedError",
-    "if __name__ = .__main__.:",
-    "if TYPE_CHECKING:",
-    "if typing.TYPE_CHECKING:",
+[[tool.mypy.overrides]]
+module = [
+  "absolv",
+  "absolv.*",
+  "datasets",
+  "datasets.*",
+  "femto",
+  "femto.*",
+  "mdtraj",
+  "NNPOps",
+  "NNPOps.*",
+  "openff.toolkit",
+  "openmm",
+  "openmm.app",
+  "openmm.unit",
+  "parmed",
+  "parmed.*",
+  "pydantic_units",
+  "pymbar",
+  "pymbar.timeseries",
+  "smirnoff_plugins.*",
+  "symengine",
+]
+ignore_missing_imports = true
+
+[tool.pytest]
+ini_options.addopts = "-m 'not fe'"
+ini_options.markers = [ "fe: run free energy regression tests" ]
+
+[tool.coverage]
+run.omit = [ "**/_tests/*" ]
+report.exclude_lines = [
+  "@overload",
+  "if __name__ = .__main__.:",
+  "if TYPE_CHECKING:",
+  "if typing.TYPE_CHECKING:",
+  "pragma: no cover",
+  "raise NotImplementedError",
 ]

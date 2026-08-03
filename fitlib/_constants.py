@@ -2,25 +2,7 @@
 
 import enum
 
-if hasattr(enum, "StrEnum"):
-    _StrEnum = enum.StrEnum
-else:
-    import typing
-
-    _S = typing.TypeVar("_S", bound="_StrEnum")
-
-    class _StrEnum(str, enum.Enum):
-        """TODO: remove when python 3.10 support is dropped."""
-
-        def __new__(cls: typing.Type[_S], *values: str) -> _S:
-            value = str(*values)
-
-            member = str.__new__(cls, value)
-            member._value_ = value
-
-            return member
-
-        __str__ = str.__str__
+_StrEnum = enum.StrEnum
 
 
 class PotentialType(_StrEnum):

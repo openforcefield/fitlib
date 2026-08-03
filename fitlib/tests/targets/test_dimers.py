@@ -4,6 +4,8 @@ import openff.units
 import pytest
 import torch
 
+pytest.importorskip("openmm")
+
 import fitlib.converters
 import fitlib.utils.dataset
 from fitlib.targets.dimers import (

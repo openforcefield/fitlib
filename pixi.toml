@@ -2,11 +2,11 @@
 authors = ["Open Force Field Initiative <info@openforcefield.org>"]
 channels = ["conda-forge"]
 name = "fitlib"
-platforms = [ "linux-64", "osx-arm64" ]
+platforms = ["linux-64", "osx-arm64"]
 
 [tasks]
-run_tests = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/tests/"
-run_mypy = "python -m mypy fitlib/"
+test = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/tests/"
+type-check = "python -m mypy fitlib/"
 make_docs = "sphinx-build -b html docs docs/_build/html"
 clean_docs = "rm -rf docs/_build docs/api/generated"
 
@@ -16,9 +16,8 @@ setuptools-scm = ">=8"
 pip = "*"
 msgpack-python = "*"
 pydantic = "*"
-pydantic-units = "*"
-openff-toolkit = "0.18.*"
-openff-interchange = "0.5.*"
+openff-toolkit-base = "0.18.*"
+openff-interchange-base = "0.5.*"
 pytorch = "*"
 pyarrow = "*"
 datasets = "*"
@@ -26,7 +25,7 @@ scipy = "*"
 rdkit = "*"
 matplotlib-base = "*"
 panel = "*"
-openmm = "*"
+python-symengine = "*"
 jupyter = "*"
 nbconvert = "*"
 tensorboard = "*"
@@ -49,7 +48,6 @@ pytorch-gpu = "*"
 [feature.mm.dependencies]
 openmm = "*"
 # packmol = "*"
-python-symengine = "*"
 rdkit = "*"
 numpy = "*"
 msgpack-python = "*"
@@ -60,13 +58,16 @@ pydantic-units = "*"
 [feature.fe.dependencies]
 mdtraj = "*"
 absolv-base = "=1.0.4"
-femto = "=0.2.1"  # API break in 0.3.x that absolv hasn't been updated for?
+femto = "=0.2.1"       # API break in 0.3.x that absolv hasn't been updated for?
 
 [feature.openeye]
 channels = ["openeye"]
 
 [feature.openeye.dependencies]
 openeye-toolkits = "*"
+
+[feature.ambertools.dependencies]
+ambertools = "*"
 
 [feature.examples.dependencies]
 jupyter = "*"
@@ -80,6 +81,7 @@ ruff = "*"
 nbqa = "*"
 ipython = "*"
 ipdb = "*"
+taplo = "*"
 
 [feature.test.dependencies]
 pytest = "*"
@@ -106,7 +108,6 @@ python = "3.12.*"
 [feature.py313.dependencies]
 python = "3.13.*"
 
-
 [tool.pixi.feature.pydantic-2.dependencies]
 pydantic = ">=2.0"
 
@@ -118,11 +119,17 @@ mypy = "*"
 scipy-stubs = "*"
 types-tqdm = "*"
 pandas-stubs = "*"
+rdkit-stubs = "*"
+pyarrow-stubs = "*"
+msgpack-types = "*"
+types-networkx = "*"
+types-PyYAML = "*"
 
 [environments]
 # from smee, there were some environments without the "mm" feature
-base-py312 = [ "py312", "test", "typing" ]
-base-py313 = [ "py313", "test", "typing" ]
-py312 = [ "py312", "mm", "fe", "test", "typing" ]
-dev = [ "py312", "mm", "fe", "openeye", "test", "typing", "dev" ]
-docs = [ "py312", "docs" ]
+# "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
+base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
+base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
+py312 = ["py312", "mm", "fe", "test", "typing"]
+dev = ["py312", "mm", "fe", "openeye", "test", "typing", "dev"]
+docs = ["py312", "docs"]

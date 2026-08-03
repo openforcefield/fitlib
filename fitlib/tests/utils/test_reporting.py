@@ -1,7 +1,10 @@
 import openff.interchange
 import openff.toolkit
+import pytest
 from matplotlib import pyplot
 from rdkit import Chem
+
+pytest.importorskip("openmm")
 
 import fitlib.converters
 from fitlib.utils.reporting import (
