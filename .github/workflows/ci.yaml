@@ -18,7 +18,6 @@ jobs:
       PIXI_ENV: ${{ matrix.base }}-py${{ matrix.python-version }}
 
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["312", "313"]
@@ -36,7 +35,7 @@ jobs:
         run: echo "${OE_LICENSE_TEXT}" > "${OE_LICENSE}"
 
       - name: Setup virtual environment
-        uses: prefix-dev/setup-pixi@v0.10.0
+        uses: prefix-dev/setup-pixi@v0.10.1
         with:
           cache: true
           environments: ${{ env.PIXI_ENV }}
