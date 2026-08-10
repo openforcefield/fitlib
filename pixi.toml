@@ -58,11 +58,6 @@ pydantic-units = "*"
 [feature.packmol.dependencies]
 packmol = "*"
 
-[feature.fe.dependencies]
-mdtraj = "*"
-absolv-base = "=1.0.4"
-femto = "=0.2.1"       # API break in 0.3.x that absolv hasn't been updated for?
-
 [feature.openeye]
 channels = ["openeye"]
 
@@ -135,5 +130,5 @@ base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
 mm-py312 = ["py312", "ambertools", "mm", "test", "typing"]
 mm-py313 = ["py313", "ambertools", "mm", "test", "typing"]
-dev = ["py312", "mm", "fe", "openeye", "test", "typing", "dev"]
+dev = ["py312", "mm", "openeye", "test", "typing", "dev"]
 docs = ["py312", "docs"]
