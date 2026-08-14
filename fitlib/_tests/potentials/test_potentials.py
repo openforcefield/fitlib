@@ -243,6 +243,8 @@ def test_compute_energy_v_sites():
 
 @pytest.mark.parametrize("periodic", [True, False])
 def test_energy_backward_pass(periodic):
+    import fitlib.mm
+
     tensor_sys, tensor_ff = fitlib._tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
     tensor_sys.is_periodic = periodic
 
