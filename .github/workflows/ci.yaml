@@ -25,6 +25,7 @@ jobs:
         base:
           - base
           - mm
+          - examples
 
     steps:
       - uses: actions/checkout@v7

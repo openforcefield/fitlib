@@ -6,6 +6,8 @@ platforms = ["linux-64", "osx-arm64"]
 
 [tasks]
 test = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/_tests/"
+# doesn't include examples/md-simulations.ipynb, should it?
+test-examples = "jupyter nbconvert --to notebook --execute examples/compute-energy.ipynb examples/conformer-minimization.ipynb examples/parameter-gradients.ipynb"
 type-check = "python -m mypy fitlib/"
 make_docs = "sphinx-build -b html docs docs/_build/html"
 clean_docs = "rm -rf docs/_build docs/api/generated"
@@ -130,5 +132,7 @@ base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
 mm-py312 = ["py312", "ambertools", "mm", "test", "typing"]
 mm-py313 = ["py313", "ambertools", "mm", "test", "typing"]
+examples-py312 = ["py312", "mm", "openeye", "examples"]
+examples-py313 = ["py313", "mm", "openeye", "examples"]
 dev = ["py312", "mm", "openeye", "test", "typing", "dev"]
 docs = ["py312", "docs"]
