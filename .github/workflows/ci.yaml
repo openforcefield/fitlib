@@ -18,6 +18,7 @@ jobs:
       PIXI_ENV: ${{ matrix.base }}-py${{ matrix.python-version }}
 
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["312", "313"]
