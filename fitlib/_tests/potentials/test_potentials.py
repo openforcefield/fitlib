@@ -1,6 +1,7 @@
 import pytest
 
 pytest.importorskip("openmm")
+pytest.importorskip("NNPOps")
 
 import numpy
 import openff.interchange
