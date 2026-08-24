@@ -18,7 +18,7 @@ jobs:
       PIXI_ENV: ${{ matrix.base }}-py${{ matrix.python-version }}
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["312", "313"]
@@ -33,8 +33,10 @@ jobs:
 
       - name: Write OE license file
         env:
-          OE_LICENSE_TEXT: ${{ secrets.OE_LICENSE }}
-        run: echo "${OE_LICENSE_TEXT}" > "${OE_LICENSE}"
+          SECRET_OE_LICENSE: ${{ secrets.OE_LICENSE }}
+        run: |
+          echo "${SECRET_OE_LICENSE}" > ${OE_LICENSE}
+          pixi run -e ${{ matrix.environment }} python -c "from openeye import oechem; assert oechem.OEChemIsLicensed()"
 
       - name: Setup virtual environment
         uses: prefix-dev/setup-pixi@v0.10.1
