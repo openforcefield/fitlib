@@ -38,6 +38,7 @@ jobs:
           environments: ${{ env.PIXI_ENV }}
 
       - name: Write OE license file
+        if: ${{ !contains(env.PIXI_ENV, 'docs') }}
         env:
           SECRET_OE_LICENSE: ${{ secrets.OE_LICENSE }}
         run: |

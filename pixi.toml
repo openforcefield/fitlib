@@ -126,8 +126,8 @@ types-PyYAML = "*"
 # "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
 base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
-mm-py312 = ["py312", "ambertools", "mm", "test", "typing"]
-mm-py313 = ["py313", "ambertools", "mm", "test", "typing"]
+mm-py312 = ["py312", "openeye", "ambertools", "mm", "test", "typing"]
+mm-py313 = ["py313", "openeye", "ambertools", "mm", "test", "typing"]
 examples-py312 = ["py312", "mm", "openeye", "examples", "test", "typing"]
 examples-py313 = ["py313", "mm", "openeye", "examples", "test", "typing"]
 dev = ["py312", "mm", "openeye", "test", "typing", "dev"]
