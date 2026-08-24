@@ -39,11 +39,11 @@ jobs:
 
       - name: Write OE license file
         if: ${{ !contains(env.PIXI_ENV, 'docs') }}
-        env:
-          SECRET_OE_LICENSE: ${{ secrets.OE_LICENSE }}
         run: |
           echo "${SECRET_OE_LICENSE}" > ${OE_LICENSE}
           pixi run -e "${{ env.PIXI_ENV }}" python -c "from openeye import oechem; assert oechem.OEChemIsLicensed()"
+        env:
+          SECRET_OE_LICENSE: ${{ secrets.OE_LICENSE }}
 
       - name: Run type-checker
         run: pixi run -e "${{ env.PIXI_ENV }}" type-check
