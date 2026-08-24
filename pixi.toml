@@ -50,14 +50,10 @@ pytorch-gpu = "*"
 
 [feature.mm.dependencies]
 openmm = "*"
-# packmol = "*"
 rdkit = "*"
 numpy = "*"
 msgpack-python = "*"
 nnpops = "*"
-
-[feature.packmol.dependencies]
-packmol = "*"
 
 [feature.openeye]
 channels = ["openeye"]
@@ -69,6 +65,7 @@ openeye-toolkits = "*"
 ambertools = "*"
 
 [feature.examples.dependencies]
+packmol = "*"
 jupyter = "*"
 nbconvert = "*"
 nglview = "*"
