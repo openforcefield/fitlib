@@ -3,6 +3,8 @@ import pytest
 pytest.importorskip("openmm")
 pytest.importorskip("NNPOps")
 
+from fittlib.mm import generate_system_coords
+
 import numpy
 import openff.interchange
 import openff.interchange.models
@@ -244,12 +246,10 @@ def test_compute_energy_v_sites():
 
 @pytest.mark.parametrize("periodic", [True, False])
 def test_energy_backward_pass(periodic):
-    import fitlib.mm
-
     tensor_sys, tensor_ff = fitlib._tests.utils.system_from_smiles(["CCC", "O"], [2, 3])
     tensor_sys.is_periodic = periodic
 
-    coords, _ = fitlib.mm.generate_system_coords(tensor_sys, None)
+    coords, _ = generate_system_coords(tensor_sys, None)
     coords = torch.tensor(coords.value_in_unit(openmm.unit.angstrom))
     box_vectors = torch.eye(3, dtype=coords.dtype) * 30.0 if periodic else None
     coords.requires_grad = True

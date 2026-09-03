@@ -57,8 +57,10 @@ openeye-toolkits = "*"
 [feature.ambertools.dependencies]
 ambertools = "*"
 
-[feature.examples.dependencies]
+[feature.packmol.dependencies]
 packmol = "*"
+
+[feature.examples.dependencies]
 jupyter = "*"
 nbconvert = "*"
 nglview = "*"
@@ -121,7 +123,41 @@ base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
 mm-py312 = ["py312", "openeye", "ambertools", "mm", "test", "typing"]
 mm-py313 = ["py313", "openeye", "ambertools", "mm", "test", "typing"]
-examples-py312 = ["py312", "mm", "openeye", "examples", "test", "typing"]
-examples-py313 = ["py313", "mm", "openeye", "examples", "test", "typing"]
+examples-py312 = [
+  "py312",
+  "mm",
+  "openeye",
+  "packmol",
+  "examples",
+  "test",
+  "typing",
+]
+examples-py313 = [
+  "py313",
+  "mm",
+  "openeye",
+  "packmol",
+  "examples",
+  "test",
+  "typing",
+]
+examples-ambertools-py312 = [
+  "py312",
+  "mm",
+  "ambertools",
+  "openeye",
+  "examples",
+  "test",
+  "typing",
+]
+examples-ambertools-py313 = [
+  "py313",
+  "mm",
+  "ambertools",
+  "openeye",
+  "examples",
+  "test",
+  "typing",
+]
 dev = ["py312", "mm", "openeye", "test", "typing", "dev"]
 docs = ["py312", "docs"]
