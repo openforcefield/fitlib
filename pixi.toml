@@ -10,6 +10,8 @@ platforms = [
 
 [tasks]
 test = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/_tests/"
+# doesn't include examples/md-simulations.ipynb because it's not great without CUDA
+test-examples = "mkdir -p .nbconvert && jupyter nbconvert --to notebook --execute --output-dir .nbconvert examples/compute-energy.ipynb examples/conformer-minimization.ipynb examples/parameter-gradients.ipynb"
 type-check = "python -m mypy fitlib/"
 make_docs = "sphinx-build -b html docs docs/_build/html"
 clean_docs = "rm -rf docs/_build docs/api/generated"
@@ -20,8 +22,8 @@ setuptools-scm = ">=8"
 pip = "*"
 msgpack-python = "*"
 pydantic = "2.*"
-openff-toolkit-base = "0.18.*"
-openff-interchange-base = "0.5.*"
+pydantic-units = "*"
+openff-toolkit = "0.19.*"
 pytorch = "*"
 pyarrow = "*"
 datasets = "*"
@@ -45,8 +47,6 @@ rdkit = "*"
 numpy = "*"
 msgpack-python = "*"
 nnpops = "*"
-pydantic = "*"
-pydantic-units = "*"
 
 [feature.openeye]
 channels = ["openeye"]
@@ -56,6 +56,15 @@ openeye-toolkits = "*"
 
 [feature.ambertools.dependencies]
 ambertools = "*"
+
+[feature.packmol.dependencies]
+packmol = "*"
+
+[feature.examples.dependencies]
+jupyter = "*"
+nbconvert = "*"
+nglview = "*"
+smirnoff-plugins = "*"
 
 [feature.dev.dependencies]
 pre-commit = "*"
@@ -112,7 +121,43 @@ types-PyYAML = "*"
 # "base" environments need something for pre-AshGC force fields, openeye is vastly easier to install
 base-py312 = ["py312", "openeye", "ambertools", "test", "typing"]
 base-py313 = ["py313", "openeye", "ambertools", "test", "typing"]
-mm-py312 = ["py312", "ambertools", "mm", "test", "typing"]
-mm-py313 = ["py313", "ambertools", "mm", "test", "typing"]
+mm-py312 = ["py312", "openeye", "ambertools", "mm", "test", "typing"]
+mm-py313 = ["py313", "openeye", "ambertools", "mm", "test", "typing"]
+examples-py312 = [
+  "py312",
+  "mm",
+  "openeye",
+  "packmol",
+  "examples",
+  "test",
+  "typing",
+]
+examples-py313 = [
+  "py313",
+  "mm",
+  "openeye",
+  "packmol",
+  "examples",
+  "test",
+  "typing",
+]
+examples-ambertools-py312 = [
+  "py312",
+  "mm",
+  "ambertools",
+  "openeye",
+  "examples",
+  "test",
+  "typing",
+]
+examples-ambertools-py313 = [
+  "py313",
+  "mm",
+  "ambertools",
+  "openeye",
+  "examples",
+  "test",
+  "typing",
+]
 dev = ["py312", "mm", "openeye", "test", "typing", "dev"]
 docs = ["py312", "docs"]
