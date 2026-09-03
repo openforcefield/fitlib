@@ -11,7 +11,7 @@ platforms = [
 [tasks]
 test = "python -m pytest -n auto --cov=fitlib --cov-append --cov-report=xml --color=yes fitlib/_tests/"
 # doesn't include examples/md-simulations.ipynb, should it?
-test-examples = "jupyter nbconvert --to notebook --execute examples/compute-energy.ipynb examples/conformer-minimization.ipynb examples/parameter-gradients.ipynb"
+test-examples = "mkdir -p .nbconvert && jupyter nbconvert --to notebook --execute --output-dir .nbconvert examples/compute-energy.ipynb examples/conformer-minimization.ipynb examples/parameter-gradients.ipynb"
 type-check = "python -m mypy fitlib/"
 make_docs = "sphinx-build -b html docs docs/_build/html"
 clean_docs = "rm -rf docs/_build docs/api/generated"
