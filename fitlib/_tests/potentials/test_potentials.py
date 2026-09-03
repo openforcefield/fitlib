@@ -3,7 +3,7 @@ import pytest
 pytest.importorskip("openmm")
 pytest.importorskip("NNPOps")
 
-from fittlib.mm import generate_system_coords
+from fitlib.mm import generate_system_coords
 
 import numpy
 import openff.interchange
