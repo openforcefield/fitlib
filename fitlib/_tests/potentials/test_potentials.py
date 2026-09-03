@@ -3,8 +3,6 @@ import pytest
 pytest.importorskip("openmm")
 pytest.importorskip("NNPOps")
 
-from fitlib.mm import generate_system_coords
-
 import numpy
 import openff.interchange
 import openff.interchange.models
@@ -17,6 +15,7 @@ import torch
 import fitlib._tests.utils
 import fitlib.converters
 import fitlib.utils
+from fitlib.mm import generate_system_coords
 from fitlib.potentials import (
     broadcast_exceptions,
     broadcast_parameters,
